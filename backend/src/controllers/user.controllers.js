@@ -203,7 +203,7 @@ exports.loginUser = async (req, res) => {
     const user = result.rows[0];
 
     // Gerar token de autenticação
-    //const token = generateAuthToken(user); // Implement your token generation logic
+    const token = generateAuthToken(user); // Implement your token generation logic
 
     await connection.close();
     console.log('usuário logado com sucesso');
