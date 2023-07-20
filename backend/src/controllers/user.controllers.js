@@ -1,5 +1,6 @@
 const User = require('../models/user.model');
 const oracledb = require('oracledb');
+const jwt = require('jsonwebtoken');
 
 // Conexão com o Oracle DB
 const oracleConfig = {
@@ -182,6 +183,19 @@ exports.setcontaContabil = async (req, res) => {
     res.status(400).json('Erro ao realizar o login');
   }
 };*/
+// Função para gerar um token de autenticação com as informações do usuário
+function generateAuthToken(id, username, name) {
+  const payload = {
+    id: id,
+    username: username,
+    name: name
+  };
+
+  const token = jwt.sign(payload, 'a92Ajnz@9a-@4', { expiresIn: '1h' }); // O token expirará em 1 hora
+
+  return token;
+}
+
 exports.loginUser = async (req, res) => {
   try {
     const username = req.body.username;
@@ -190,7 +204,7 @@ exports.loginUser = async (req, res) => {
     // Verificar se o usuário existe no Oracle DB
     const connection = await oracledb.getConnection();
     const result = await connection.execute(
-      `SELECT * FROM users WHERE username = :username AND password = :password`,
+      `SELECT ID, NAME, USERNAME FROM users WHERE username = :username AND password = :password`,
       [username, password]
     );
 
@@ -202,12 +216,14 @@ exports.loginUser = async (req, res) => {
     // Obter o usuário do resultado da consulta
     const user = result.rows[0];
 
-    // Gerar token de autenticação
-    const token = generateAuthToken(user); // Implement your token generation logic
+    // Gerar token de autenticação com as informações do usuário
+    const token = generateAuthToken(user.ID, username, user.NAME);
+    console.log("token:");
+    console.log(token);
 
     await connection.close();
-    console.log('usuário logado com sucesso');
-    res.status(200).json({ message: 'usuário(a) logado com sucesso'});
+    console.log('usuário logado com sucessoooo');
+    res.status(200).json({ message: 'usuário(a) logado com sucesso', token: token });
   } catch (err) {
     console.log(err);
     res.status(400).json('Erro ao realizar o login');
