@@ -89,15 +89,6 @@ exports.getAllUsers = async (req, res) => {
 };
 
 
-/*exports.getUsersFunction = async (req, res) => {
-  try {
-    const users = await User.find().select('funcao');
-    res.json(users);
-  } catch (err) {
-    res.status(500).json({ message: 'Erro ao retornar os usuários.', error: err });
-  }
-};*/
-
 exports.getUsersFunction = async (req, res) => {
   try {
     // Obter a função dos usuários no Oracle DB
@@ -163,26 +154,6 @@ exports.setcontaContabil = async (req, res) => {
   }
 };
 
-//TODO
-/*exports.loginUser = async(req, res) => { 
-  try{
-    const username = req.body.username;
-    const password = req.body.password;
-    const user = await User.findByCredentials(username, password);
-    console.log('KAMEHAMEJA');
-    console.log(user);
-    if(!user) {
-      console.log('erro ao reakuzar i kigu verufuqye');
-      return res.status(409).json({ message: 'Erro ao realizar o login, verifique suas credenciais.' });
-    }
-    const token = await user.generateAuthToken();
-    console.log('usuário logado com sucesso');
-    res.status(200).json({message:'usuário(a) logado com sucesso'});
-  } catch (err) {
-    console.log(err);
-    res.status(400).json('Erro ao realizar o login');
-  }
-};*/
 // Função para gerar um token de autenticação com as informações do usuário
 function generateAuthToken(id, username, name) {
   const payload = {

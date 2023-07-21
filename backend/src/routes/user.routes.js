@@ -17,7 +17,7 @@ router.put('/setcontacontabil/:id', userController.setcontaContabil);
 router.get('/getfuncao', userController.getUsersFunction);
 
 // Rota responsável por criar um novo 'User': POST localhost:3000/api/v1/register
-router.post('/register', userController.registerNewUser);
+router.post('/register', auth, userController.registerNewUser);
 
 //Rota responsavel pelo login do usuário
 router.post('/login', userController.loginUser);

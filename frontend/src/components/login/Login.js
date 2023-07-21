@@ -23,7 +23,7 @@ export default {
         console.log('aqui a fita');
         console.log(this.loginForm);
         await LoginService.loginUser(this.loginForm);
-        this.$router.push('/home');
+        this.$router.push('/dash');
         swal({
           title: 'Sucesso!',
           text: 'Usuário Logado com Sucesso',

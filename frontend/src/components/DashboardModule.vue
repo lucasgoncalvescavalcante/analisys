@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div>
+    <h2>Bem vindo ao Gerenciamento Hospitalar, {{ userName }}!</h2>
+    <!--<div>
       <label for="username">Username:</label>
       <input type="text" id="username" v-model="username" />
     </div>
@@ -16,11 +17,12 @@
         </tr>
       </thead>
       <tbody></tbody>
-    </table>
+    </table>-->
   </div>
 </template>
 
 <script>
+import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import $ from 'jquery';
 import 'datatables.net';
@@ -36,6 +38,12 @@ export default {
   },
   mounted() {
     this.initDataTable();
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Decodificar o token JWT para obter os dados do usuário
+      const decodedToken = jwt_decode(token);
+      this.username = decodedToken.name; // Definir o nome do usuário na variável userName
+    }
   },
   methods: {
     initDataTable() {
