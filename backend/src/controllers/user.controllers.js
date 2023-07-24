@@ -26,8 +26,10 @@ connectToOracleDB();
 
 exports.registerNewUser = async (req, res) => {
   try {
+    console.log('testeeee');
     const {username, name, functionId, password} = req.body;
-
+    console.log(username);
+    console.log(password);
 
     // Verificar se o usuário já existe no Oracle DB
     const connection = await oracledb.getConnection();

@@ -1,0 +1,15 @@
+Data/Hora: 2023-07-24T17:27:13.283Z
+ID da Conta: 5363
+Conta Contábil Anterior: 1234
+Nova Conta Contábil: 1234
+
+Data/Hora: 2023-07-24T17:28:07.233Z
+ID da Conta: 5363
+Conta Contábil Anterior: 1234
+Nova Conta Contábil: 14144
+
+Data/Hora: 2023-07-24T19:36:59.126Z
+ID da Conta: 5363
+Conta Contábil Anterior: 14144
+Nova Conta Contábil: 1111
+
