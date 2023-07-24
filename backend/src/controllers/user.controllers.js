@@ -26,10 +26,8 @@ connectToOracleDB();
 
 exports.registerNewUser = async (req, res) => {
   try {
-    const username = req.body.username;
-    const name = req.body.name;
-    const functionId = req.body.functionId;
-    const password = req.body.password;
+    const {username, name, functionId, password} = req.body;
+
 
     // Verificar se o usuário já existe no Oracle DB
     const connection = await oracledb.getConnection();
@@ -104,53 +102,6 @@ exports.getUsersFunction = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Erro ao retornar os usuários.', error: err });
-  }
-};
-
-exports.getContasaPagar = async (req, res) => {
-  try {
-    // Obter a função dos usuários no Oracle DB
-    const contasid = req.params.id;
-    const connection = await oracledb.getConnection();
-    const result = await connection.execute(
-      `SELECT * FROM contasapagar WHERE CONTASID = :id`, [contasid]
-    );
-
-    const data = result.rows.map(row => {
-      return {
-        id: row[0],
-        contacontabil: row[1],
-        periodoInicio: row[2],
-        periodoFim: row[3],
-        lote: row[4]
-      };
-    });
-
-    await connection.close();
-    res.json(data);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Erro ao retornar os dados.', error: err });
-  }
-};
-
-exports.setcontaContabil = async (req, res) => {
-  try {
-    // Obter a função dos usuários no Oracle DB
-    console.log('teste');
-    const contasid = req.params.id;
-    const newContacontabil = 4444;
-    console.log(contasid);
-    const connection = await oracledb.getConnection();
-    await connection.execute(
-      `UPDATE contasapagar SET contacontabil = :newContacontabil WHERE contasid = :id`,
-      [newContacontabil, contasid]
-    );
-
-    await connection.close();
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Erro ao retornar os dados.', error: err });
   }
 };
 

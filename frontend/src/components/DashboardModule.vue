@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Bem vindo ao Gerenciamento Hospitalar, {{ userName }}!</h2>
+    <h2>Bem vindo ao Gerenciamento Hospitalar, {{ usernamedisplay }}!</h2>
     <!--<div>
       <label for="username">Username:</label>
       <input type="text" id="username" v-model="username" />
@@ -33,16 +33,18 @@ export default {
     return {
       username: '',
       name: '',
+      usernamedisplay: '',
       dataTable: null,
     };
   },
   mounted() {
     this.initDataTable();
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('jwt');
+    console.log('Token:', token);
     if (token) {
       // Decodificar o token JWT para obter os dados do usuário
       const decodedToken = jwt_decode(token);
-      this.username = decodedToken.name; // Definir o nome do usuário na variável userName
+      this.usernamedisplay = decodedToken.username; // Definir o nome do usuário na variável userName
     }
   },
   methods: {

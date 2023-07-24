@@ -2,16 +2,17 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middlewares/auth');
 const userController = require('../controllers/user.controllers');
+const contabilController = require('../controllers/contabil.controllers');
 
 
 // Rota para retornar todos os usuários
 router.get('/users', userController.getAllUsers);
 
 // Retorna dados do contas a pagar
-router.get('/getcontas/:id', userController.getContasaPagar);
+router.get('/getcontas/:id', contabilController.getContasaPagar);
 
 // Altera conta contabil
-router.put('/setcontacontabil/:id', userController.setcontaContabil);
+router.put('/setcontacontabil', contabilController.setcontaContabil);
 
 //retorna a funcao de todos os usuários
 router.get('/getfuncao', userController.getUsersFunction);

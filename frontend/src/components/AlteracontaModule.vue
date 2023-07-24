@@ -75,12 +75,16 @@ export default {
     },
     async updateContacontabil() {
       try {
+        const payload = {
+          contasid: this.contasid,
+          contacontabil: this.newContacontabil
+        };
         /*const response = await axios.put(`http://localhost:3000/api/v1/setcontacontabil/${this.contasid}`, {
           contacontabil: this.newContacontabil
         });*/
         swal('Conta contabil atualizada', 'Valor da conta contabil atualizado com sucesso.', 'success');
         this.showNewContacontabil = false;
-        const response = await axios.put(`http://localhost:3000/api/v1/setcontacontabil/${this.contasid}`);
+        const response = await axios.put(`http://localhost:3000/api/v1/setcontacontabil/`,payload);
 
         console.log(response.data);
 
