@@ -5,6 +5,7 @@ import RegisterComponent from '../components/register/RegisterComponent.vue';
 import HomeComponent from '../components/home/HomeComponent.vue';
 import Dashboard from '../components/DashboardModule.vue';
 import Alteraconta from '../components/AlteracontaModule.vue';
+import Alteraconta2 from '../components/AlteracontaModule2.vue';
 import isAuthenticated from './authguard.js';
 import PageNotFound from '../components/PageNotFound.vue'
 
@@ -37,6 +38,11 @@ const routes = [
         path: '/', // Rota vazia para a página inicial
         component: Dashboard,
         meta: { moduleName: 'Home' },
+      },
+      {
+        path: '/alterarconta2', // Rota vazia para a página inicial
+        component: Alteraconta2,
+        meta: { moduleName: 'Alterar conta contábil 2' },
       },
       {
         path: '/alterarconta', // Rota vazia para a página inicial
