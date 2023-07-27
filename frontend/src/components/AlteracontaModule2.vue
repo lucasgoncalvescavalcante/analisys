@@ -1,82 +1,45 @@
 <template>
-  <div class="container">
-    <h1>Contas a pagar</h1>
-    <form @submit.prevent="buscarContas">
-      <div class="form-group">
-        <label for="periodo">Período</label>
-        <input type="text" class="form-control" id="periodo" v-model="periodo">
-      </div>
-      <div class="form-group">
-        <label for="numero">Número da conta</label>
-        <input type="text" class="form-control" id="numero" v-model="numero">
-      </div>
-      <button type="submit" class="btn btn-primary">Buscar</button>
-    </form>
-    <table class="table">
+  <div>
+    <table id="tabela-dados" class="display" style="width:100%">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Conta Contábil</th>
-          <th>Nova Conta Contábil</th>
+          <th>Username</th>
+          <th>Name</th>
         </tr>
       </thead>
-      <tbody>
-        <tr v-for="conta in contas">
-          <td>{{ conta.id }}</td>
-          <td>{{ conta.contaContabil }}</td>
-          <td>
-            <input type="text" class="form-control" v-model="conta.novaContaContabil">
-          </td>
-        </tr>
-      </tbody>
     </table>
-    <button type="button" class="btn btn-primary" @click="alterarContas">Salvar Alterações</button>
   </div>
 </template>
 
 <script>
-const axios = require('axios');
+import $ from 'jquery';
+import 'datatables.net';
+import 'datatables.net-bs5/css/dataTables.bootstrap5.min.css';
+
 export default {
-  data() {
-    return {
-      periodo: '',
-      numero: '',
-      contas: []
-    };
+  mounted() {
+    this.initializeDataTable();
   },
   methods: {
-    buscarContas() {
-      // Chamada à API simulada
-      const response = axios.get('/api/buscar-contas', {
-        params: {
-          periodo: this.periodo,
-          numero: this.numero
-        }
+    initializeDataTable() {
+      $('#tabela-dados').DataTable({
+        serverSide: true,
+        searching: true, // Habilitar busca
+        searchDelay: 500, // Atraso de busca de 500ms (opcional, ajuste conforme necessário)
+        ajax: {
+          url: 'http://localhost:3000/api/v1/getdata',
+          type: 'GET',
+          data: (data) => {
+            // Adicionar parâmetros de busca
+            data.search.value = data.search.value || ''; // Valor de busca (vazio se não houver)
+          },
+        },
+        columns: [
+          { data: 'username' }, // Coluna para o campo "username"
+          { data: 'name' }, // Coluna para o campo "name"
+        ],
       });
-
-      this.contas = response.data;
     },
-    alterarContas() {
-      // Lógica para atualizar contas na API (simulado)
-      for (const conta of this.contas) {
-        axios.put(`/api/alterar-conta-contabil/${conta.id}`, {
-          novaContaContabil: conta.novaContaContabil
-        });
-      }
-
-      console.log('Contas atualizadas:');
-      console.log(this.contas);
-    }
-  }
+  },
 };
 </script>
-
-<style>
-table {
-  width: 100%;
-}
-
-th, td {
-  padding: 10px;
-}
-</style>
