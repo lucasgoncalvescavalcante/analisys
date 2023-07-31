@@ -11,7 +11,7 @@ router.get('/users', userController.getAllUsers);
 // Retorna dados do contas a pagar
 router.get('/getcontas/:id', contabilController.getContasaPagar);
 
-router.get('/getdata', contabilController.getDataTablesData);
+router.get('/getdata', userController.getDataTablesData);
 
 // Altera conta contabil
 router.put('/setcontacontabil', contabilController.setcontaContabil);

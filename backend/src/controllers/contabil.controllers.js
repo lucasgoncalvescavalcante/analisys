@@ -28,46 +28,6 @@ exports.getContasaPagar = async (req, res) => {
   }
 };
 
-// Função para lidar com a requisição do DataTables no modo "server-side"
-// Função para lidar com a requisição do DataTables no modo "server-side"
-exports.getDataTablesData = async (req, res) => {
-  try {
-    console.log('testando essa bosta');
-    const { draw, start, length } = req.query;
-
-    // Realize aqui a consulta ao banco de dados Oracle para obter os dados com base nos parâmetros do DataTables (draw, start, length, etc.)
-
-    // Exemplo de consulta para selecionar apenas os campos "username" e "name"
-    const query = `
-      SELECT username, name
-      FROM users
-      WHERE ROWNUM >= :startRow AND ROWNUM <= :endRow
-    `;
-
-    const startRow = parseInt(start) + 1;
-    const endRow = parseInt(start) + parseInt(length);
-
-    const connection = await oracledb.getConnection();
-    const result = await connection.execute(query, { startRow, endRow });
-    connection.close();
-
-    const responseData = {
-      draw: parseInt(draw),
-      recordsTotal: result.rows.length, // Total de registros na tabela (sem paginação)
-      recordsFiltered: result.rows.length, // Total de registros após a filtragem (se houver)
-      data: result.rows.map(row => ({
-        username: row[0],
-        name: row[1]
-      })), // Mapeando apenas os campos desejados
-    };
-
-    res.json(responseData);
-  } catch (err) {
-    console.error('Erro ao recuperar os dados do DataTables:', err);
-    res.status(500).json({ error: 'Erro ao recuperar os dados.' });
-  }
-};
-
 /*exports.setcontaContabil = async (req, res) => {
   try {
     // Obter a função dos usuários no Oracle DB

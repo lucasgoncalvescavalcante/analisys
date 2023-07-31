@@ -154,6 +154,65 @@ exports.loginUser = async (req, res) => {
   }
 };
 
+// Função para lidar com a requisição do DataTables no modo "server-side"
+exports.getDataTablesData = async (req, res) => {
+  try {
+    console.log('testando essa bosta');
+    
+    const { draw, start, length, order, columns } = req.query;
+
+    // Convertendo os valores recebidos para uso na consulta SQL
+    const orderByColumnIndex = parseInt(order[0].column);
+    const orderByColumnName = columns[orderByColumnIndex].data.toUpperCase(); // Convertendo para maiúsculo
+    const orderByDirection = order[0].dir.toUpperCase();
+    console.log('orderbydirection', orderByDirection)
+
+    // Consulta para obter o número total de registros na tabela (sem paginação)
+    const countQuery = `
+      SELECT COUNT(*) AS total
+      FROM users
+    `;
+
+    const connection = await oracledb.getConnection();
+
+    // Consulta para contar o número total de registros
+    const resultCount = await connection.execute(countQuery);
+    const totalRecords = resultCount.rows[0][0];
+
+    // Consulta para obter os dados com base nos parâmetros do DataTables (paginação)
+    const startRow = parseInt(start);
+    //const endRow = parseInt(start) + parseInt(length);
+
+    const query = `
+      SELECT username, name, isactive
+      FROM users
+      ORDER BY "${orderByColumnName}" ${orderByDirection}
+      OFFSET :startRow ROWS FETCH NEXT :length ROWS ONLY
+    `;
+    console.log(query, { startRow, length: parseInt(length) } );
+    const result = await connection.execute(query, { startRow, length: parseInt(length) });
+
+    connection.close();
+
+    const responseData = {
+      draw: parseInt(draw),
+      recordsTotal: totalRecords,
+      recordsFiltered: totalRecords, // Por enquanto, vamos assumir que não há filtragem
+      data: result.rows.map(row => ({
+        username: row[0],
+        name: row[1],
+        editButton: `<button onclick="editUser('${row[0]}')">Editar</button>`,
+        isactive: row[2],
+      })), // Mapeando apenas os campos desejados
+    };
+    res.json(responseData);
+  } catch (err) {
+    console.error('Erro ao recuperar os dados do DataTables:', err);
+    res.status(500).json({ error: 'Erro ao recuperar os dados.' });
+  }
+};
+
+
 exports.returnUserProfile = async(req, res) => { 
   await res.json(req.userData);
 };
