@@ -13,6 +13,8 @@ router.get('/getcontas/:id', contabilController.getContasaPagar);
 
 router.get('/getdata', userController.getDataTablesData);
 
+router.get('/getuserdata/:userid', userController.getUserData);
+
 // Altera conta contabil
 router.put('/setcontacontabil', contabilController.setcontaContabil);
 

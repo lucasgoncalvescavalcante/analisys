@@ -64,6 +64,31 @@ exports.registerNewUser = async (req, res) => {
 //Async e Await
 
 
+exports.getUserData = async (req, res) => {
+  try {
+    const Userid = req.params.userid;
+    const connection = await oracledb.getConnection();
+    const result = await connection.execute(
+      `SELECT ID, USERNAME, NAME, FUNCTION_ID FROM users WHERE ID = :Userid`,
+      [Userid]
+    );
+    console.log(result);
+    if (result.rows.length === 0) {
+      await connection.close();
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
+    }
+
+    const user = result.rows[0];
+    console.log(user);
+    await connection.close();
+
+    res.status(200).json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Error while fetching user data for editing.', error: err });
+  }
+};
+
 exports.getAllUsers = async (req, res) => {
   try {
     // Obter todos os usuários do Oracle DB
@@ -184,7 +209,7 @@ exports.getDataTablesData = async (req, res) => {
     //const endRow = parseInt(start) + parseInt(length);
 
     const query = `
-      SELECT username, name, isactive
+      SELECT username, name, isactive, ID
       FROM users
       ORDER BY "${orderByColumnName}" ${orderByDirection}
       OFFSET :startRow ROWS FETCH NEXT :length ROWS ONLY
@@ -201,7 +226,7 @@ exports.getDataTablesData = async (req, res) => {
       data: result.rows.map(row => ({
         username: row[0],
         name: row[1],
-        editButton: `<button onclick="editUser('${row[0]}')">Editar</button>`,
+        editButton: `<button onclick="window.location.href='/editarusuario/${row[3]}'">Editar</button>`,
         isactive: row[2],
       })), // Mapeando apenas os campos desejados
     };
