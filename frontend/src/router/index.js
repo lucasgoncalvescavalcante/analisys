@@ -5,7 +5,8 @@ import RegisterComponent from '../components/register/RegisterComponent.vue';
 import HomeComponent from '../components/home/HomeComponent.vue';
 import Dashboard from '../components/DashboardModule.vue';
 import Alteraconta from '../components/AlteracontaModule.vue';
-import Listarusuarios from '../components/AlteracontaModule2.vue';
+import Alteraconta2 from '../components/AlteracontaModule2.vue';
+import Listarusuarios from '../components/ListUserModule.vue';
 import isAuthenticated from './authguard.js';
 import PageNotFound from '../components/PageNotFound.vue'
 import EditFormUser from '../components/EditFormUser.vue'
@@ -48,6 +49,11 @@ const routes = [
       {
         path: '/alterarconta', // Rota vazia para a página inicial
         component: Alteraconta,
+        meta: { moduleName: 'Alterar conta contábil' },
+      },
+      {
+        path: '/teste', // Rota vazia para a página inicial
+        component: Alteraconta2,
         meta: { moduleName: 'Alterar conta contábil' },
       },
       {

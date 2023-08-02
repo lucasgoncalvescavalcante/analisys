@@ -23,3 +23,8 @@ ID da Conta: 5363
 Conta Contábil Anterior: 1111
 Nova Conta Contábil: 111
 
+Data/Hora: 2023-08-02T18:13:10.713Z
+ID da Conta: 5363
+Conta Contábil Anterior: 111
+Nova Conta Contábil: 2323
+
