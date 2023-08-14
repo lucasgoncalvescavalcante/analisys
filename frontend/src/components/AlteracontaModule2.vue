@@ -57,8 +57,8 @@ export default {
         const response = await axios.get(`http://localhost:3000/api/v1/getContas/${this.contasid}`);
         const data = response.data;
 
-        Limpa o corpo da tabela antes de adicionar novas linhas
-        this.dataTable.clear();
+       // Limpa o corpo da tabela antes de adicionar novas linhas
+        //this.dataTable.clear();
 
         // Adiciona novas linhas para cada item no array de dados
         data.forEach(item => {
