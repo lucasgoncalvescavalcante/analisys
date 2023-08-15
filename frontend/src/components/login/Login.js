@@ -20,8 +20,9 @@ export default {
     },
     async submitLoginUser() {
       try {
-        console.log('aqui a fita');
-        console.log(this.loginForm);
+        console.log("Botão de login clicado!");
+        console.log("Nome de usuário:", this.loginForm.username);
+        console.log("Senha:", this.loginForm.password);
         await LoginService.loginUser(this.loginForm);
         this.$router.push('/dash');
         swal({

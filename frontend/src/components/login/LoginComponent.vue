@@ -1,7 +1,53 @@
 <!-- eslint-disable vuejs-accessibility/label-has-for -->
 <template>
+		<div class="d-flex justify-content-center h-100">
+			<div class="user_card">
+				<div class="d-flex justify-content-center">
+					<div class="brand_logo_container">
+						<img src="https://a.imagem.app/bg87xi.png" class="brand_logo" alt="Logo">
+					</div>
+				</div>
+				<div class="d-flex justify-content-center form_container">
+					<form>
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							<input required=""
+  type="password"
+  id="password"
+  name="password"
+  v-model="loginForm.username"
+  class="form-control input_user">
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+							<input
+  required=""
+  type="password"
+  id="password"
+  name="password"
+  v-model="loginForm.password"
+  class="form-control input_pass"
+/>
+						</div>
+						<div class="form-group">
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" class="custom-control-input" id="customControlInline">
+								<label class="custom-control-label" for="customControlInline">Lembre-me</label>
+							</div>
+						</div>
+							<div class="d-flex justify-content-center mt-3 login_container">
+					<button type="button" name="button" class="btn login_btn" @click="submitLoginUser()">Login</button>
+				</div>
+					</form>
+				</div>
+			</div>
+		</div>
 
-  <div class="telalogin">
+  <!--<div class="telalogin">
     <div class="row">
       <form class="text-center form-container" v-on:submit.prevent="loginSubmitUserForm()">
         <img src="http://santacasacg.org.br/images/logo-santa-casa.png" alt="Imagem de login" style="width: 300px;">
@@ -35,153 +81,79 @@
 
       </form>
     </div>
-  </div>
+  </div>-->
 </template>
 <script src="./Login.js"></script>
 <style>
-  .img
-  {
-    border-bottom: 30;
-  }
-  .telalogin {
-    background-image: url('https://img.freepik.com/free-vector/blue-hexagonal-medical-healthcare-background-design_1017-26836.jpg?w=1380&t=st=1691908404~exp=1691909004~hmac=4413927ecfcad860305cd15b08814f10d5d49513ed6ffd224ec720890f7d8416');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 100vh;
-    width: 100%;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  body,
+		html {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			background: #60a3bc !important;
+		}
+		.user_card {
+			height: 400px;
+			width: 350px;
+			margin-top: 14%;
+			margin-bottom: auto;
+			background: #F0F3F7;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			padding: 10px;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
 
-  .form-container {
-    margin-top: 90px;
-    padding-top: 40px !important;
-    background-color: rgba(255, 255, 255, 0.61);
-    border-radius: 15px;
-    width: 400px;
-  }
-
-
-  /* Estilos para o botão de alternar a visibilidade da senha */
-  .form-container button {
-    background-color: rgb(196, 196, 196);
-    border: none;
-    color: rgb(0, 0, 0);
-    cursor: pointer;
-  }
-
-  /* Estilos para o link de cadastro */
-  .center {
-    text-align: center;
-  }
-
-  /* Estilos para o botão de login */
-  .form-container center button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background-color: #1171d8;
-    color: rgb(207, 8, 8);
-    border-radius: 5px;
-    cursor: pointer;
-
-  }
-  
-  .group {
- position: relative;
- margin-bottom: 30px;
-}
-
-.input {
-  background: transparent !important;
- font-size: 16px;
- padding: 10px 10px 10px 5px;
- display: block;
- width: 200px;
- border: none;
- border-bottom: 1px solid #515151;
-}
-
-.input:focus {
- outline: none;
-}
-
-label {
- color: #999;
- font-size: 18px;
- font-weight: normal;
- position: absolute;
- pointer-events: none;
- left: 5px;
- top: 10px;
- transition: 0.2s ease all;
- -moz-transition: 0.2s ease all;
- -webkit-transition: 0.2s ease all;
-}
-
-.input:focus ~ label, .input:valid ~ label {
- top: -20px;
- font-size: 14px;
- color: #5264AE;
-}
-
-.bar {
- position: relative;
- display: block;
- width: 200px;
-}
-
-.bar:before, .bar:after {
- content: '';
- height: 2px;
- width: 0;
- bottom: 1px;
- position: absolute;
- background: #5264AE;
- transition: 0.2s ease all;
- -moz-transition: 0.2s ease all;
- -webkit-transition: 0.2s ease all;
-}
-
-.bar:before {
- left: 50%;
-}
-
-.bar:after {
- right: 50%;
-}
-
-.input:focus ~ .bar:before, .input:focus ~ .bar:after {
- width: 50%;
-}
-
-.highlight {
- position: absolute;
- height: 60%;
- width: 100px;
- top: 25%;
- left: 0;
- pointer-events: none;
- opacity: 0.5;
-}
-
-.input:focus ~ .highlight {
- animation: inputHighlighter 0.3s ease;
-}
-
-@keyframes inputHighlighter {
- from {
-  background: #5264AE;
- }
-
- to {
-  width: 0;
-  background: transparent;
- }
-}
+		}
+		.brand_logo_container {
+			position: absolute;
+			height: 170px;
+			width: 170px;
+			top: -75px;
+			border-radius: 50%;
+			background: #60a3bc;
+			padding: 10px;
+			text-align: center;
+		}
+		.brand_logo {
+			height: 150px;
+			width: 150px;
+			border-radius: 50%;
+			border: 4px solid #0a80ad;
+		}
+		.form_container {
+			margin-top: 100px;
+		}
+		.login_btn {
+			width: 100%;
+			background: #0a80ad !important;
+			color: white !important;
+		}
+		.login_btn:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+		.login_container {
+			padding: 0 2rem;
+		}
+		.input-group-text {
+			background: #0a80ad !important;
+			color: white !important;
+			border: 0 !important;
+			border-radius: 0.25rem 0 0 0.25rem !important;
+		}
+		.input_user,
+		.input_pass:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+		.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+			background-color: #c0392b !important;
+		}
 
 </style>
 
