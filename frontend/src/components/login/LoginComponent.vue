@@ -4,7 +4,7 @@
 			<div class="user_card">
 				<div class="d-flex justify-content-center">
 					<div class="brand_logo_container">
-						<img src="https://a.imagem.app/bg87xi.png" class="brand_logo" alt="Logo">
+						<img src="..\..\..\public\logo-santa-casa.png" class="brand_logo" alt="Logo">
 					</div>
 				</div>
 				<div class="d-flex justify-content-center form_container">

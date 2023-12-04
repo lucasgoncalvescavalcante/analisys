@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 // Conexão com o Oracle DB
 const oracleConfig = {
   user: 'SYSTEM',
-  password: 'teste123',
+  password: '123',
   connectString: "localhost:1521/XE"
 };
 
