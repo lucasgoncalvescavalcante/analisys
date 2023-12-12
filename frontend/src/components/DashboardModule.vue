@@ -1,7 +1,11 @@
 <template>
   <div>
-    <h2>Bem vindo ao Gerenciamento Hospitalar, {{ usernamedisplay }}!</h2>
-    <!--<div>
+    <h4>Bem vindo ao Gerenciamento Hospitalar, {{ usernamedisplay }}!</h4>
+    <h2>Pacientes ativos por Plano:</h2>
+    <div style="width: 300px;">
+    <canvas id="myChart"></canvas>
+    </div>
+    <!--<div>iphone cartaocelulariphone cartao
       <label for="username">Username:</label>
       <input type="text" id="username" v-model="username" />
     </div>
@@ -27,6 +31,7 @@ import axios from 'axios';
 import $ from 'jquery';
 import 'datatables.net';
 import 'datatables.net-dt/css/jquery.dataTables.css';
+import Chart from 'chart.js/auto'
 
 export default {
   data() {
@@ -46,6 +51,28 @@ export default {
       const decodedToken = jwt_decode(token);
       this.usernamedisplay = decodedToken.username; // Definir o nome do usuário na variável userName
     }
+    const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ['SUS', 'Cassems', 'Unimed'],
+      datasets: [{
+        backgroundColor: ['#2754A6', '#748493', '#00874D'],
+        label: '# of Votes',
+        data: [80, 10, 20],
+        borderWidth: 2,
+        weight: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          responsive: true,
+        }
+      }
+    }
+  });
   },
   methods: {
     initDataTable() {
